@@ -66,4 +66,4 @@ def last_funk(x, L, q):
     b0 = max([x[1],50])/100*L
     draw_beam (a0, L-b0, L, q, N=1001)
 
-show = widgets.interactive(last_funk, x=last_interval, L=length, q=last)
+# show = widgets.interactive(last_funk, x=last_interval, L=length, q=last)
