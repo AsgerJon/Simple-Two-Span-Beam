@@ -3,7 +3,7 @@ from numba import njit
 import matplotlib.pyplot as plt
 from beam_drawing import *
 
-@njit
+# @njit
 def load(a, b, L, q, R1, N=101):
 	N += (N+1)%2
 	Rq = q * (L - a - b)
@@ -19,7 +19,7 @@ def load(a, b, L, q, R1, N=101):
 			p[i] = -q
 	return p*L/N
 		
-@njit
+# @njit
 def shear(a, b, L, q, R1, N=100):
 	Rq = q * (L - a - b)
 	Rxa = a + Rq/2/q
@@ -43,7 +43,7 @@ def shear(a, b, L, q, R1, N=100):
 			V[i] = Vs[3]
 	return V
 	
-@njit
+# @njit
 def moment(a, b, L, q, R1, N=101):
 	Rq = q * (L - a - b)
 	Rxa = a + Rq/2/q
@@ -79,7 +79,7 @@ def moment(a, b, L, q, R1, N=101):
 			M[i] = M0 - R3 * dx
 	return M
 
-@njit
+# @njit
 def energi(a, b, L, q, R1, N=101):
 	N += (N+1)%2
 	M = moment(a, b, L, q, R1, N)
@@ -88,7 +88,7 @@ def energi(a, b, L, q, R1, N=101):
 		u += (2+(i%2)*2)*M[i]**2
 	return u
 
-@njit
+# @njit
 def get_R1(a, b, L, q, N=101):
 	r1 = 0
 	r1max = q*L
