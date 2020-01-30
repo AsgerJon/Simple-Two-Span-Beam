@@ -17,36 +17,7 @@ def load(a, b, L, q, R1, N=101):
 	for i in range(N):
 		if x[i] > a and x[i] < L - b:
 			p[i] = -q
-	# p[1] = R1/dx
-	# p[int(N//2)] = R2/dx
-	# p[-2] = R3/dx
 	return p*L/N
-
-# @njit
-# def shear(a, b, L, q, R1, N=101):
-	# N += (N+1)%2
-	# Rq = q * (L - a - b)
-	# Rxa = a + Rq/2/q
-	# Rxb = b + Rq/2/q
-	# R2 = 2*Rq/L*(Rxb)-2*R1
-	# R3 = Rq - R2 - R1
-	# p = load(a, b, L, q, R1, N)
-	# x = np.linspace(0, L, N)
-	# V = np.zeros((N))
-	# for i in range(N):
-		# if i < int(N//2) + 1:
-			# # V[i] = np.sum(p[:i]) + R1
-			# if x[i] > a and x[i] <= L-b:
-				# V[i] = R1 - q*(x[i] - a)
-			# else:
-				# V[i] = R1
-		# else:
-			# # V[i] = np.sum(p[:i]) + R1 + R2
-			# if x[i] > a and x[i] <= L-b:
-				# V[i] = R1 + R2 - q*(x[i] - a)
-			# else:
-				# V[i] = R1 + R2
-	# return V*L/(N+1)
 		
 @njit
 def shear(a, b, L, q, R1, N=100):
@@ -69,21 +40,8 @@ def shear(a, b, L, q, R1, N=100):
 		elif i < N - 1:
 			V[i] = Vs[3]
 		else:
-			V[i] = Vs[3] # V[i-1] + R3
+			V[i] = Vs[3]
 	return V
-	
-# @njit
-# def moment(a, b, L, q, R1, N=101):
-	# M = np.zeros((N))
-	# V = shear(a, b, L, q, R1, N)
-	# for i in range(N):
-		# if i > 3:
-			# M[i] = (V[0] + V[i])/2
-			# for j in range(1,i-1):
-				# M[i] += V[j]
-		# else:
-			# M[i] = np.sum(V[:i])
-	# return M*L/(N+1)
 	
 @njit
 def moment(a, b, L, q, R1, N=101):
