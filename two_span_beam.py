@@ -12,6 +12,7 @@ from beam_drawing import *
 import numpy as np
 import matplotlib.pyplot as plt
 import ipywidgets as widgets
+from IPython.display import display
 
 N = 1001
 
@@ -74,13 +75,12 @@ length = widgets.FloatText(
             },
 )
 
-def last_funk(onoff, x, L, q):
+def last_funk(x, L, q):
     a0 = min([x[0],50])/100*L
     b0 = max([x[1],50])/100*L
-    if onoff: draw_beam(a0, L-b0, L, q, N=1001)
+    if True: draw_beam(a0, L-b0, L, q, N=1001)
 
 show = widgets.interactive(last_funk, 
-	onoff=resetknap,
 	x=last_interval, 
 	L=length, 
 	q=last,
