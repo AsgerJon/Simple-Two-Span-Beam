@@ -1,5 +1,5 @@
 import numpy as np
-from numba import njit
+# from numba import njit
 import matplotlib.pyplot as plt
 from beam_drawing import *
 
