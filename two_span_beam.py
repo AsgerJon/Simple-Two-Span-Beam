@@ -15,12 +15,25 @@ import ipywidgets as widgets
 
 N = 1001
 
+resetknap = widgets.ToggleButton(
+    value=False,
+    description='Klik her for at begynde',
+    disabled=False,
+    button_style='', # 'success', 'info', 'warning', 'danger' or ''
+    tooltip='Description',
+    icon='calculator', # (FontAwesome names without the `fa-` prefix)
+    layout = widgets.Layout(
+        width = '600px',
+        height = '50px',
+        ),
+)
+
 last_interval = widgets.IntRangeSlider(
     value=[0, 100],
     min=0,
     max=100,
     step=1,
-    description='Load Interval in Percentage of Beam Length:',
+    description='Last Interval som Procent af Bjælkens Længde:',
     disabled=False,
     continuous_update=False,
     orientation='horizontal',
@@ -37,10 +50,10 @@ last_interval = widgets.IntRangeSlider(
 
 last = widgets.FloatText(
     value = 1,
-    description = 'Load in [N/mm]',
+    description = 'Last i [N/mm]',
     disabled = False,
     layout = widgets.Layout(
-        width = '400px',
+        width = '600px',
         height = '25px',
         ),
     style = {'description_width': 'initial',
@@ -50,10 +63,10 @@ last = widgets.FloatText(
 
 length = widgets.FloatText(
     value = 2000,
-    description = 'Length in [mm]:',
+    description = 'Bjælkens Længde i [mm]:',
     disabled = False,
     layout = widgets.Layout(
-        width = '400px',
+        width = '600px',
         height = '25px',
         ),
     style = {'description_width': 'initial',
@@ -61,9 +74,14 @@ length = widgets.FloatText(
             },
 )
 
-def last_funk(x, L, q):
+def last_funk(onoff, x, L, q):
     a0 = min([x[0],50])/100*L
     b0 = max([x[1],50])/100*L
-    draw_beam (a0, L-b0, L, q, N=1001)
+    if onoff: draw_beam(a0, L-b0, L, q, N=1001)
 
-# show = widgets.interactive(last_funk, x=last_interval, L=length, q=last)
+show = widgets.interactive(last_funk, 
+	onoff=resetknap,
+	x=last_interval, 
+	L=length, 
+	q=last,
+)
